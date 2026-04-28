@@ -39,7 +39,7 @@ async def run_agent_once():
 
     user_msg = types.Content(
         role="user",
-        parts=[types.Part.from_text(ASK_MSG)],
+        parts=[types.Part.from_text(text=ASK_MSG)],
     )
 
     final_response = None
