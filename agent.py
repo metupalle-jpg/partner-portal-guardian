@@ -7,7 +7,7 @@ from . import tools
 
 root_agent = Agent(
     name="partner_portal_guardian",
-    model="gemini-2.5-flash",
+    model="gemini-2.0-flash",
     description=(
         "Nightly health-check bot for partner.resohealth.life. "
         "Monitors builds, site availability, i18n, auth, and APIs."
