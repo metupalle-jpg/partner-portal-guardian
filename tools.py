@@ -7,7 +7,7 @@ from datetime import datetime, timezone, timedelta
 from typing import Optional
 
 import requests
-from google.cloud import build_v1
+from google.cloud.devtools import cloudbuild_v1 as build_v1
 from google.cloud.devtools.cloudbuild_v1.types import Build
 
 # ---------------------------------------------------------------------------
