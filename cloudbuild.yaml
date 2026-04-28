@@ -1,0 +1,40 @@
+steps:
+  # Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'me-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/partner-guardian:$COMMIT_SHA'
+      - '.'
+
+  # Push to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'me-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/partner-guardian:$COMMIT_SHA'
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'partner-guardian'
+      - '--image'
+      - 'me-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/partner-guardian:$COMMIT_SHA'
+      - '--region'
+      - 'me-central1'
+      - '--platform'
+      - 'managed'
+      - '--timeout'
+      - '300'
+      - '--memory'
+      - '512Mi'
+      - '--min-instances'
+      - '0'
+      - '--max-instances'
+      - '1'
+      - '--no-allow-unauthenticated'
+
+images:
+  - 'me-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/partner-guardian:$COMMIT_SHA'
